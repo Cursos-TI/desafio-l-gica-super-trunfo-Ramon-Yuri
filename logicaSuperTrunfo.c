@@ -1,43 +1,101 @@
 #include <stdio.h>
 
-// Desafio Super Trunfo - Países
-// Tema 2 - Comparação das Cartas
-// Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
-// Siga os comentários para implementar cada parte do desafio.
+// Estrutura para armazenar os dados da cidade
+typedef struct {
+    char nome[50];        
+    int populacao;        
+    float area;           
+    float pib;            
+    int pontos_turisticos;
+} Cidade;
+
+// Função para calcular densidade populacional
+float calcularDensidade(Cidade c) {
+    return c.populacao / c.area;
+}
+
+// Função para calcular PIB per capita
+float calcularPibPerCapita(Cidade c) {
+    return c.pib / c.populacao;
+}
 
 int main() {
-    // Definição das variáveis para armazenar as propriedades das cidades
-    // Você pode utilizar o código do primeiro desafio
-
+    Cidade cidades[2];
+    printf("Cadastro de Cartas - Super Trunfo\n");
     
-    // Cadastro das Cartas:
-    // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-    // utilizando a função scanf para capturar as entradas.
-    // utilize o código do primeiro desafio
-
-    // Exemplo:
-    // printf("Digite o código da cidade: ");
-    // scanf("%s", codigo);
-    // 
-    // (Repita para cada propriedade)
-
-    // Comparação de Cartas:
-    // Desenvolva a lógica de comparação entre duas cartas.
-    // Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
-
-    // Exemplo:
-    // if (populacaoA > populacaoB) {
-    //     printf("Cidade 1 tem maior população.\n");
-    // } else {
-    //     printf("Cidade 2 tem maior população.\n");
-    // }
-
-    // Exibição dos Resultados:
-    // Após realizar as comparações, exiba os resultados para o usuário.
-    // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
-
-    // Exemplo:
-    // printf("A cidade vencedora é: %s\n", cidadeVencedora);
-
+    // Cadastro das cidades
+    for (int i = 0; i < 2; i++) {
+        printf("\n== Cadastro da Cidade %d ==\n", i + 1);
+        printf("Nome: ");
+        scanf(" %49[^\n]", cidades[i].nome);
+        printf("População: ");
+        scanf("%d", &cidades[i].populacao);
+        printf("Área (em km2): ");
+        scanf("%f", &cidades[i].area);
+        printf("PIB (em milhões): ");
+        scanf("%f", &cidades[i].pib);
+        printf("Pontos turísticos: ");
+        scanf("%d", &cidades[i].pontos_turisticos);
+    }
+    
+    // Escolha do atributo para comparação
+    int atributo;
+    printf("\nEscolha o atributo para comparar:\n");
+    printf("1 - População\n2 - Área\n3 - PIB\n4 - Pontos turísticos\n5 - Densidade populacional (menor vence)\n6 - PIB per capita\n");
+    printf("Opção: ");
+    scanf("%d", &atributo);
+    
+    printf("\nComparando %s vs %s\n", cidades[0].nome, cidades[1].nome);
+    
+    if (atributo == 1) {
+        if (cidades[0].populacao > cidades[1].populacao)
+            printf("Vencedor: %s\n", cidades[0].nome);
+        else if (cidades[0].populacao < cidades[1].populacao)
+            printf("Vencedor: %s\n", cidades[1].nome);
+        else
+            printf("Empate!\n");
+    } else if (atributo == 2) {
+        if (cidades[0].area > cidades[1].area)
+            printf("Vencedor: %s\n", cidades[0].nome);
+        else if (cidades[0].area < cidades[1].area)
+            printf("Vencedor: %s\n", cidades[1].nome);
+        else
+            printf("Empate!\n");
+    } else if (atributo == 3) {
+        if (cidades[0].pib > cidades[1].pib)
+            printf("Vencedor: %s\n", cidades[0].nome);
+        else if (cidades[0].pib < cidades[1].pib)
+            printf("Vencedor: %s\n", cidades[1].nome);
+        else
+            printf("Empate!\n");
+    } else if (atributo == 4) {
+        if (cidades[0].pontos_turisticos > cidades[1].pontos_turisticos)
+            printf("Vencedor: %s\n", cidades[0].nome);
+        else if (cidades[0].pontos_turisticos < cidades[1].pontos_turisticos)
+            printf("Vencedor: %s\n", cidades[1].nome);
+        else
+            printf("Empate!\n");
+    } else if (atributo == 5) {
+        float dens1 = calcularDensidade(cidades[0]);
+        float dens2 = calcularDensidade(cidades[1]);
+        if (dens1 < dens2)
+            printf("Vencedor: %s\n", cidades[0].nome);
+        else if (dens1 > dens2)
+            printf("Vencedor: %s\n", cidades[1].nome);
+        else
+            printf("Empate!\n");
+    } else if (atributo == 6) {
+        float pib1 = calcularPibPerCapita(cidades[0]);
+        float pib2 = calcularPibPerCapita(cidades[1]);
+        if (pib1 > pib2)
+            printf("Vencedor: %s\n", cidades[0].nome);
+        else if (pib1 < pib2)
+            printf("Vencedor: %s\n", cidades[1].nome);
+        else
+            printf("Empate!\n");
+    } else {
+        printf("Opção inválida!\n");
+    }
+    
     return 0;
 }
